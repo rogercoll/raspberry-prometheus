@@ -4,4 +4,3 @@ node_exporter_install_path: /opt/node-exporter
 node_exporter_service_name: node-exporter
 node_exporter_log_path: /var/log/node_exporter
 node_listen: 127.0.0.1
-node_port: 9100

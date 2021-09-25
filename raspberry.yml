@@ -22,6 +22,12 @@
   hosts: nodes
   roles:
   - role: 'node-exporter'
-    tags: 'node-exporter'
+    tags: 'prometheus'
     vars:
       node_listen: "{{ ansible_host }}"
+
+- name: Install and configure Prometheus on master node
+  hosts: master
+  become: true
+  roles:
+    - { role: 'prometheus', tags: 'prometheus' }

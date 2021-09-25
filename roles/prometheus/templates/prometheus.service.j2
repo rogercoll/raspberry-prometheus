@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus Monitoring Sytem 
+Documentation=https://prometheus.io/docs/introduction/overview/
+After=network-online.target
+
+[Service]
+User=pi
+Restart=on-failure
+
+ExecStart={{ prometheus_install_path }}/{{ prometheus_filename }}/prometheus --config.file={{ prometheus_install_path }}/{{ prometheus_filename }}/prometheus.yml --storage.tsdb.path "{{ prometheus_log_path }}"
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,53 @@
+- name: Creates directory Prometheus service
+  become: true
+  file:
+    path: "{{ prometheus_install_path }}"
+    state: directory
+    owner: pi
+    group: pi
+    mode: 0775
+
+- name: Creates log directory
+  become: true
+  file:
+    path: "{{ prometheus_log_path }}"
+    state: directory
+    owner: pi
+    group: pi
+    mode: 0775
+
+- stat:
+    path: "{{ prometheus_install_path }}/{{ prometheus_filename }}"
+  register: dest
+
+- name: Download and unarchive Prometheus package
+  unarchive:
+    src: "{{ prometheus_download_url }}"
+    remote_src: True
+    dest: "{{ prometheus_install_path }}/"
+  when: not dest.stat.exists
+
+- name: Copy Prometheus config file
+  template:
+    src: prometheus.yml.j2
+    dest: "{{ prometheus_install_path }}/{{ prometheus_filename }}/prometheus.yml"
+    mode: 0755
+  notify: restart prometheus
+
+- name: Copy Prometheus Systemd file
+  become: true
+  template:
+    src: prometheus.service.j2
+    dest: /etc/systemd/system/{{ prometheus_service_name }}.service
+    mode: 0755
+  notify:
+    - enable prometheus
+    - restart prometheus
+
+- meta: flush_handlers
+
+- name: Start Prometheus
+  become: true
+  service:
+    name: prometheus
+    state: started
