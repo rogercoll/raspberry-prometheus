@@ -1,0 +1,17 @@
+- name: Basic raspberry configuration
+  hosts: all
+  become: true
+  roles:
+    - { role: 'basic-config', tags: 'basic-config' }
+
+- name: Install docker 
+  hosts: nodes 
+  become: true
+  vars:
+    pip_package: python3-pip
+  roles:
+    - role: "geerlingguy.pip"
+    - role: "geerlingguy.docker_arm"
+      vars:
+        docker_users:
+          - pi
