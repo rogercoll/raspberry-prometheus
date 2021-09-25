@@ -31,3 +31,9 @@
   become: true
   roles:
     - { role: 'prometheus', tags: 'prometheus' }
+
+- name: Install Grafana service
+  hosts: master
+  roles:
+  - { role: 'grafana', tags: 'grafana' }
+

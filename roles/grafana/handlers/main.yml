@@ -1,0 +1,11 @@
+- name: Grafana Deamon reload
+  become: true
+  systemd:
+    name: grafana-server
+    daemon_reload: yes
+
+- name: Restart Grafana
+  become: true
+  service:
+    name: grafana-server
+    state: restarted

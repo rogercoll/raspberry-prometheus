@@ -9,3 +9,7 @@ init: ## Init Ansible
 	ansible-galaxy install -r requirements.yml --roles-path roles/
 run: ## Run Ansible playbook
 	ansible-playbook raspberry.yml -i inventory
+prometheus: ## Run Ansible playbook for Prometheus roles
+	ansible-playbook raspberry.yml -i inventory --tags prometheus
+grafana: ## Run Ansible playbook for Grafana roles
+	ansible-playbook raspberry.yml -i inventory --tags grafana
