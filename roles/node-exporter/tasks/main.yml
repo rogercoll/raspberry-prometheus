@@ -1,0 +1,46 @@
+- name: Creates directory Node exporter service
+  become: true
+  file:
+    path: "{{ node_exporter_install_path }}"
+    state: directory
+    owner: pi
+    group: pi
+    mode: 0775
+
+- name: Creates log directory
+  become: true
+  file:
+    path: "{{ node_exporter_log_path }}"
+    state: directory
+    owner: pi
+    group: pi
+    mode: 0775
+
+- stat:
+    path: "{{ node_exporter_install_path }}/{{ node_exporter_filename }}"
+  register: dest
+
+- name: Download and unarchive Node exporter package
+  unarchive:
+    src: "{{ node_exporter_download_url }}"
+    remote_src: True
+    dest: "{{ node_exporter_install_path }}/"
+  when: not dest.stat.exists
+
+- name: Copy Node exporter init script
+  become: true
+  template:
+    src: node.exporter.service.j2
+    dest: /etc/systemd/system/{{ node_exporter_service_name }}.service
+    mode: 0755
+  notify:
+    - enable node_exporter
+    - start node_exporter
+
+- meta: flush_handlers
+
+- name: Start Node exporter
+  become: true
+  service:
+    name: node-exporter
+    state: started

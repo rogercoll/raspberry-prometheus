@@ -11,7 +11,17 @@
     pip_package: python3-pip
   roles:
     - role: "geerlingguy.pip"
+      tags: "docker"
     - role: "geerlingguy.docker_arm"
+      tags: "docker"
       vars:
         docker_users:
           - pi
+
+- name: Install Prometheus Node exporter service
+  hosts: nodes
+  roles:
+  - role: 'node-exporter'
+    tags: 'node-exporter'
+    vars:
+      node_listen: "{{ ansible_host }}"

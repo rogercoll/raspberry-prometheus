@@ -1,0 +1,12 @@
+- name: enable node_exporter
+  become: true
+  service:
+      name: node-exporter
+      enabled: yes
+      masked: no
+
+- name: start node_exporter
+  become: true
+  service:
+      name: node-exporter
+      state: started
