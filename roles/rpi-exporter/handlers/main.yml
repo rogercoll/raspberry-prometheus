@@ -1,0 +1,13 @@
+- name: enable rpi_exporter
+  become: true
+  service:
+      name: "{{ rpi_exporter_service_name }}"
+      enabled: yes
+      masked: no
+
+- name: start rpi_exporter
+  become: true
+  service:
+      name: "{{ rpi_exporter_service_name }}"
+      state: started
+

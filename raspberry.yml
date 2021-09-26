@@ -19,9 +19,13 @@
           - pi
 
 - name: Install and configure Prometheus exporter services
-  hosts: nodes
+  hosts: all
   roles:
   - role: 'node-exporter'
+    tags: 'prometheus'
+    vars:
+      node_listen: "{{ ansible_host }}"
+  - role: 'rpi-exporter'
     tags: 'prometheus'
     vars:
       node_listen: "{{ ansible_host }}"

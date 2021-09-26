@@ -1,0 +1,13 @@
+[Unit]
+Description=Raspberry Pi Exporter
+Documentation=https://github.com/lukasmalkmus/rpi_exporter
+After=network-online.target
+
+[Service]
+User=pi
+Restart=on-failure
+
+ExecStart="{{ rpi_exporter_install_path }}/{{ rpi_exporter_filename }}"/rpi_exporter --web.listen-address "{{ node_listen }}:9334"
+
+[Install]
+WantedBy=multi-user.target
