@@ -1,0 +1,8 @@
+- name: Copy docker configuration
+  become: true
+  template:
+    src: docker.daemon.json.j2
+    dest: "{{ docker_daemon_config_path }}"
+    mode: 0755
+  notify: restart docker
+

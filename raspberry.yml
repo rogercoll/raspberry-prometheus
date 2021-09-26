@@ -18,10 +18,14 @@
         docker_users:
           - pi
 
-- name: Install Prometheus Node exporter service
+- name: Install and configure Prometheus exporter services
   hosts: nodes
   roles:
   - role: 'node-exporter'
+    tags: 'prometheus'
+    vars:
+      node_listen: "{{ ansible_host }}"
+  - role: 'rpi-metrics'
     tags: 'prometheus'
     vars:
       node_listen: "{{ ansible_host }}"

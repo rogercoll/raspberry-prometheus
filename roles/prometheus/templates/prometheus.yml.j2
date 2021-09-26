@@ -17,3 +17,11 @@ scrape_configs:
           '{{ host }}:9100'{% if not loop.last %},{% endif %}
 {% endfor %}
       ]
+  
+  - job_name: 'docker'
+    static_configs:
+      - targets: [
+{% for host in groups['nodes'] %}
+          '{{ host }}:9323'{% if not loop.last %},{% endif %}
+{% endfor %}
+      ]
