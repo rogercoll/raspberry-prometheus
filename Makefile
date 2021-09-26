@@ -5,6 +5,8 @@ help: ## This help.
 
 .DEFAULT_GOAL := help
 
+all: init run
+
 init: ## Init Ansible
 	ansible-galaxy install -r requirements.yml --roles-path roles/
 run: ## Run Ansible playbook
