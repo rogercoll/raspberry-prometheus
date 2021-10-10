@@ -2,7 +2,10 @@
 
 Ansible roles to install and configure a cluster of Raspberry Pi (2, 3 and 4).
 
+### Grafana Dashboard
 ![Dashboard](./images/dashboard.png)
+
+### Prometheus Alerts
 ![Alerts](./images/alerts.png)
 
 ## Ansible Roles
