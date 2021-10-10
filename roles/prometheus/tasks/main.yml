@@ -27,6 +27,13 @@
     dest: "{{ prometheus_install_path }}/"
   when: not dest.stat.exists
 
+- name: Copy Prometheus alerts config file
+  copy:
+    src: alert.rules.yml
+    dest: "{{ prometheus_install_path }}/{{ prometheus_filename }}/alert.rules.yml"
+    mode: 0755
+  notify: restart prometheus
+
 - name: Copy Prometheus config file
   template:
     src: prometheus.yml.j2

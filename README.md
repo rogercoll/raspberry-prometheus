@@ -78,4 +78,6 @@ make all
 ansible-galaxy install -r requirements.yml --roles-path roles/ && ansible-playbook raspberry.yml -i inventory
 ```
 
+### Extra
 
+- Cool alert rules file: https://gist.github.com/krisek/62a98e2645af5dce169a7b506e999cd8#file-alert-rules-yml
