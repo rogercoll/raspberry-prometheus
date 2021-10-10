@@ -3,6 +3,7 @@
 Ansible roles to install and configure a cluster of Raspberry Pi (2, 3 and 4).
 
 ![Dashboard](./images/dashboard.png)
+![Alerts](./images/alerts.png)
 
 ## Ansible Roles
 
